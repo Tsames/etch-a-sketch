@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>etch-a-sketch</title>
+        <link href="./css/reset.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="./css/main.css" rel="stylesheet" type="text/css" media="all"/>
+    </head>
+    <body>
+        <div id="header">
+            <h1>Welcome to Div Etch-A-Sketch!</h1>
+        </div>
+        <div id='buttons'>
+            <button id='resetButton'>Reset</button>
+            <button id='partyButton'>Party Mode</button>
+        </div>
+        <div id='container'></div>
+        <div id="bottom"></div>
+    </body> 
+    <script>
+
+    //Global Variables
+    const container = document.querySelector('div#container');
+    let partyMode = false;
+
+    //Callback Functions
+    
+    function createGrid(tilePerSide) {
+        container.style.gridTemplateColumns = `repeat(${tilePerSide}, 1fr)`;
+        container.style.gridTemplateRows = `repeat(${tilePerSide}, 1fr)`;
+        for (let i = 0; i < Math.pow(tilePerSide,2); i++) {
+            let gridSquare = document.createElement('div');
+            gridSquare.classList.add('gridSquare-basic');
+            gridSquare.setAttribute('id',`square-${i+1}`);
+            gridSquare.addEventListener("mouseenter", (e) => {
+                gridSquare.classList.add('gridSquare-On');
+            });
+            container.appendChild(gridSquare);
+        }
+    };
+
+    function resetGrid() {
+        const tilePerSide = prompt("Please enter the number of tiles per side for your new grid.", 32)
+        if (tilePerSide) {
+            container.innerHTML = '';
+            createGrid(tilePerSide);
+        } else {
+            return;
+        }
+    };
+
+    function getRandomColor() {
+        const colors = ['#b30000' /*red */, '#00e6e6'/*cyan */, '#33cc00'/*green */, '#ff3377'/*pink */, '#e6e600'/*yellow */, '#661aff'/*purple */, '#ffcc00'/*orange */]
+        return colors[Math.floor(Math.random() * 7)];
+    };
+
+    function setRandomColor(e) {
+        e.target.setAttribute('style',`background-color: ${getRandomColor()}`);
+    };
+
+   function toggleParty(e) {
+        //Set Variables for All and Active Squares
+        let allSquares = document.querySelectorAll(`div.gridSquare-basic`);
+        let activeSquares = document.querySelectorAll('div.gridSquare-On');
+
+        //Toggle Style Changes
+        if (partyMode) {
+            allSquares.forEach(square => {
+                square.addEventListener("mouseenter", setRandomColor)});
+            activeSquares.forEach(square => {
+                square.setAttribute('style',`background-color: ${getRandomColor()}`);
+            });
+        } else {
+            allSquares.forEach(square => {
+                square.removeEventListener("mouseenter", setRandomColor)});
+            activeSquares.forEach(square => {
+                square.setAttribute('style',`background-color: `);
+            })
+        }
+    };
+
+    //Buttons
+    const resetButton = document.querySelector('button#resetButton');
+    resetButton.addEventListener('click',resetGrid);
+
+    const partyButton = document.querySelector('button#partyButton');
+    partyButton.addEventListener('click', (e) => {
+        partyButton.classList.toggle('partyOn')
+        partyMode = !partyMode;
+        toggleParty();
+    });
+
+    //Create First Grid
+    createGrid(32);
+
+    </script>
+</html>

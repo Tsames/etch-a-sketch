@@ -1,0 +1,61 @@
+html {
+    background-color: #2A4B7C;
+    font-family: arial, sans-serif;
+}
+h1 {
+    color: #9F9C99;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    text-align: center;
+    font-size: 32px;
+}
+div#buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 1.5em;
+}
+button {
+    border-color: #2A293E;
+    color: #2A293E;
+    font-size: 18px;
+    width: 7em;
+    height: 3em;
+    margin: 1em;
+    border-radius: 1em;
+}
+button#resetButton {
+    background-color: #9F9C99;
+}
+button#partyButton {
+    background-color: #9F9C99;
+}
+button.partyOn {
+    background-color: #DD4132 !important;
+}
+button:hover {
+    box-shadow: 0 0 10px #ffc600;
+    transform: scale(1.1);
+}
+div#container{
+    display: grid;
+    justify-content: center;
+    height: 960px;
+    width: 960px;
+    margin: 0 auto;
+}
+div.gridSquare-basic {
+    background-color: #b3b3b3;
+}
+div.gridSquare-basic:hover {
+    background-color: #DD4132;
+}
+div.gridSquare-On {
+    background-color: #262626;
+}
+div#bottom {
+    position:fixed;
+    margin-bottom: 0px;
+    margin-top: 10em;
+    height: 0em;
+}
